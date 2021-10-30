@@ -76,7 +76,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Data\DataManager.cs" />
+    <Compile Include="ViewModels\AppViewModel.cs" />
+    <Compile Include="ViewModels\CategoryViewModel.cs" />
+    <Compile Include="ViewModels\MyTaskViewModel.cs" />
+    <Compile Include="ViewModels\PriorityViewModel.cs" />
+    <Compile Include="ViewModels\StatusViewModel.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -121,10 +127,14 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Commands\" />
-    <Folder Include="Images\" />
-    <Folder Include="ViewModels\" />
+    <Resource Include="Images\add.png" />
+    <Resource Include="Images\clean.png" />
+    <Resource Include="Images\cross.png" />
+    <Resource Include="Images\favicon.ico" />
+    <Resource Include="Images\favicon_png.png" />
+    <Resource Include="Images\save.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
