@@ -22,25 +22,32 @@
                 
                 <TextBox x:Name="Category_Name" Width="150" Margin="5 0"
                          HorizontalContentAlignment="Center" FontSize="14"
-                         Padding="0 2" IsReadOnly="False"/>
+                         Padding="0 2" IsReadOnly="False" DataContext="{Binding SelectedCategory}"
+                         Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
                 
-                <Button x:Name="Add_Category_Btn" Width="28" Margin="2 0 ">
+                <Button x:Name="Add_Category_Btn" Width="28" Margin="2 0 "
+                        Command="{Binding AddCategory}">
                     <Image Source="../Images/add.png"/>
                 </Button>
-                <Button x:Name="Del_Category_Btn" Width="28" Margin="2 0 ">
+                <Button x:Name="Del_Category_Btn" Width="28" Margin="2 0 "
+                        Command="{Binding DeleteCategory}">
                     <Image Source="../Images/cross.png"/>
                 </Button>
 
-                <Button x:Name="Save_Category_Btn" Width="28" Margin="2 0 ">
+                <Button x:Name="Save_Category_Btn" Width="28" Margin="2 0 "
+                        Command="{Binding SaveCategory}">
                     <Image Source="../Images/save.png"/>
                 </Button>
             </StackPanel>
-            <ListBox x:Name="Categoies_List" Margin="10 0">
+            <ListBox x:Name="Categoies_List" Margin="10 0"
+                     ItemsSource="{Binding Categories_VM}"
+                     SelectedItem="{Binding SelectedCategory}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <WrapPanel>
-                            <TextBlock Text="All tasks/categoies:"/>
-                            <TextBlock FontWeight="Bold"/>
+                            <TextBlock Text="All tasks of category:"/>
+                            <TextBlock FontWeight="Bold"
+                                       Text="{Binding Name}"/>
                         </WrapPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -48,19 +55,26 @@
         </DockPanel>
         <DockPanel x:Name="Panel_2" Grid.Column="1">
             <Label Content="Task priority" DockPanel.Dock="Top"/>
-            <ComboBox x:Name="PrioritiesList" DockPanel.Dock="Top"/>
+            <ComboBox x:Name="PrioritiesList" DockPanel.Dock="Top" ItemsSource="{Binding Priority_VM}"
+                      SelectedItem="SelectedPriority" SelectedIndex ="{Binding SelectedIndex1}"
+                      DisplayMemberPath="Name"/>
 
             <Label Content="Task statuses" DockPanel.Dock="Top"/>
-            <ComboBox x:Name="StatusesList" DockPanel.Dock="Top"/>
+            <ComboBox x:Name="StatusesList" DockPanel.Dock="Top" ItemsSource="{Binding Status_VM}"
+                      SelectedItem="{Binding SelectedStatus}" SelectedIndex="{Binding SelectedIndex2}"
+                      DisplayMemberPath="Name"
+                      />
 
             <Button x:Name="Upload_btn" DockPanel.Dock="Bottom" Content="Update task list" Margin="5 0 5 10"
-                    FontWeight="Bold" Foreground="Purple"/>
-            <ListView x:Name="Task_List" Margin="5 10">
+                    FontWeight="Bold" Foreground="Purple" Command="{Binding FilterTasks}"/>
+            <ListView x:Name="Task_List" Margin="5 10" ItemsSource="{Binding MyTasks_VM}">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Task name" Width="145"/>
-                        <GridViewColumn Header="Priority" Width="65"/>
-                        <GridViewColumn Header="Status" Width="50"/>
+                        <GridViewColumn Header="Task name" Width="145"
+                                        DisplayMemberBinding="{Binding Title}"/>
+                        <GridViewColumn Header="Priority" Width="65"
+                                        DisplayMemberBinding="{Binding PriorityId}"/>
+                        <GridViewColumn Header="Status" Width="50" DisplayMemberBinding="{Binding StatusId}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
