@@ -167,9 +167,11 @@ namespace PersonalOrganizer.ViewModels
             get{
                 return filterTasks ?? (new RelayCommand(
                     (obj) =>
-                    {
+                    {   
                         var select2 = MyTasks_VM.Where(mt => mt.CategoryId == selectedCategory.Id).ToList();
+                        //var select2 = MyTasks_VM.ToList();
                         MyTasks_VM.Clear();
+                        Console.WriteLine(select2.Count);
                         if (select2.Count > 0)
                         {
                             foreach (MyTaskViewModel mtvm in select2)

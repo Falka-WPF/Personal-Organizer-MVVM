@@ -80,5 +80,20 @@
             </ListView>
 
         </DockPanel>
+        <DockPanel x:Name="Panel_3" Grid.Column="2">
+            <DockPanel.Resources>
+                <Style TargetType="Button">
+                    <Setter Property="Margin" Value="5 3 5 0"/>
+                </Style>
+            </DockPanel.Resources>
+            <Label Content="Task name:" DockPanel.Dock="Top"/>
+            <TextBox x:Name="Task_name_ComboBox" DockPanel.Dock="Top"/>
+            <Label Content="About task:" DockPanel.Dock="Top"/>
+            <Button Content="Add" DockPanel.Dock="Bottom" />
+            <Button Content="Update" DockPanel.Dock="Bottom"/>
+            <Button Content="Delete" DockPanel.Dock="Bottom"/>
+            <TextBox x:Name="Task_about_ComboBox"/>
+        </DockPanel>
+        
     </Grid>
 </Window>

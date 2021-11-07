@@ -8,6 +8,8 @@
         <Setter Property="ItemsControl.Padding" Value="5 3 5 4"/>
     </Style>
     <Style TargetType="ComboBox" BasedOn="{StaticResource BaseStyle1}"/>
+    <Style TargetType="TextBox" BasedOn="{StaticResource BaseStyle1}"/>
+    <Style TargetType="Button" BasedOn="{StaticResource BaseStyle1}"/>
 
 
 </ResourceDictionary>
