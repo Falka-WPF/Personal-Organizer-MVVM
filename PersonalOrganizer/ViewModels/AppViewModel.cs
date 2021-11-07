@@ -45,6 +45,14 @@ namespace PersonalOrganizer.ViewModels
         {
             Status_VM.Clear();
             var _statuses = _dm.Statuses.ToList();
+            if (_statuses.Count == 0)
+            {
+                _dm.Statuses.Add(new Status() {Name="To do"});
+                _dm.Statuses.Add(new Status() {Name="In progress"});
+                _dm.Statuses.Add(new Status() {Name="Done"});
+                _dm.SaveChanges();
+                _statuses = _dm.Statuses.ToList();
+            }
             foreach (Status status in _statuses)
                 Status_VM.Add(new StatusViewModel(status));
         }
@@ -59,6 +67,19 @@ namespace PersonalOrganizer.ViewModels
         {
             Priority_VM.Clear();
             var _priorities = _dm.Priorities.ToList();
+            //foreach(var item in _dm.Priorities)
+            //{
+            //    _dm.Priorities.Remove(item);
+            //}
+            //_dm.SaveChanges();
+            if (_priorities.Count == 0)
+            {
+                _dm.Priorities.Add(new Priority() {Name="Low"});
+                _dm.Priorities.Add(new Priority() {Name= "Normal" });
+                _dm.Priorities.Add(new Priority() {Name="High"});
+                _dm.SaveChanges();
+                _priorities = _dm.Priorities.ToList();
+            }
             foreach (Priority priority in _priorities)
                 Priority_VM.Add(new PriorityViewModel(priority));
         }

@@ -67,7 +67,7 @@
 
             <Button x:Name="Upload_btn" DockPanel.Dock="Bottom" Content="Update task list" Margin="5 0 5 10"
                     FontWeight="Bold" Foreground="Purple" Command="{Binding FilterTasks}"/>
-            <ListView x:Name="Task_List" Margin="5 10" ItemsSource="{Binding MyTasks_VM}">
+            <ListView x:Name="Task_List" Margin="5 10" ItemsSource="{Binding MyTasks_VM}" SelectedItem="{Binding SelectedMyTask}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Task name" Width="145"
