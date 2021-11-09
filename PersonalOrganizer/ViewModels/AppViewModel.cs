@@ -167,7 +167,8 @@ namespace PersonalOrganizer.ViewModels
             get{
                 return filterTasks ?? (new RelayCommand(
                     (obj) =>
-                    {   
+                    {
+                        LoadMyTasks();
                         var select2 = MyTasks_VM.Where(mt => mt.CategoryId == selectedCategory.Id).ToList();
                         //var select2 = MyTasks_VM.ToList();
                         MyTasks_VM.Clear();
@@ -180,6 +181,79 @@ namespace PersonalOrganizer.ViewModels
                     }
                     ));}
         }
+
+        public RelayCommand addTask;
+        public RelayCommand AddTask {
+            get {
+                return addTask ?? (new RelayCommand(
+                    (obj) =>
+                    {
+                        if (SelectedCategory == null || SelectedStatus == null || SelectedPriority == null)
+                        {
+                            System.Windows.MessageBox.Show("Not selected!", "Warning", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+                        }
+                        else
+                        {
+                            int CId = SelectedCategory.Id;
+                            int SId = SelectedStatus.Id;
+                            int PId = SelectedPriority.Id;
+                            string title = "NewTask";
+                            string about = "Information";
+                            MyTask temp = new MyTask() { CategoryId = CId, StatusId = SId, Title = title, About = about, PriorityId = PId };
+                            _dm.MyTasks.Add(temp);
+                            _dm.SaveChanges();
+                            LoadMyTasks();
+                        }
+                    }
+                    ));
+            }
+        }
+
+        private RelayCommand updateMyTask;
+        public RelayCommand UpdateMyTask
+        {
+            get
+            {
+               return addTask ?? (new RelayCommand(
+               (obj) =>
+               {
+                   var notes = MyTasks_VM.Where(c => c.Id == 0).ToList();
+                   foreach (var note in notes)
+                   {
+                       _dm.MyTasks.Add(new MyTask() { Title = note.Title, About = note.About, CategoryId = note.CategoryId, PriorityId = note.PriorityId, StatusId = note.StatusId });
+                   }
+                   _dm.SaveChanges();
+                   LoadMyTasks();
+                   System.Windows.MessageBox.Show("Sucessfully saved!", "Informarion", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+               }
+               ));
+            }
+        }
+        public RelayCommand delMyTask;
+        public RelayCommand DelMyTask
+        {
+            get
+            {
+                return delMyTask ?? (new RelayCommand(
+              (obj) =>
+              {
+                  if (selectedMyTask != null)
+                  {
+                      MyTask toDelete = _dm.MyTasks.Where(c => c.Id == SelectedMyTask.Id).FirstOrDefault();
+                      if (toDelete != null)
+                      {
+                          _dm.MyTasks.Remove(toDelete);
+                          _dm.SaveChanges();
+                          LoadMyTasks();
+                          System.Windows.MessageBox.Show("Sucessfully deleted!", "Done", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+                      }
+                  }
+              }
+              ));
+            }
+        }
+
+
         //Property changed implement
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnProperyChanged([CallerMemberName] string prop = "")

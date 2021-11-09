@@ -56,7 +56,7 @@
         <DockPanel x:Name="Panel_2" Grid.Column="1">
             <Label Content="Task priority" DockPanel.Dock="Top"/>
             <ComboBox x:Name="PrioritiesList" DockPanel.Dock="Top" ItemsSource="{Binding Priority_VM}"
-                      SelectedItem="SelectedPriority" SelectedIndex ="{Binding SelectedIndex1}"
+                      SelectedItem="{Binding SelectedPriority}" SelectedIndex ="{Binding SelectedIndex1}"
                       DisplayMemberPath="Name"/>
 
             <Label Content="Task statuses" DockPanel.Dock="Top"/>
@@ -86,13 +86,13 @@
                     <Setter Property="Margin" Value="5 3 5 0"/>
                 </Style>
             </DockPanel.Resources>
-            <Label Content="Task name:" DockPanel.Dock="Top"/>
-            <TextBox x:Name="Task_name_ComboBox" DockPanel.Dock="Top"/>
-            <Label Content="About task:" DockPanel.Dock="Top"/>
-            <Button Content="Add" DockPanel.Dock="Bottom" />
-            <Button Content="Update" DockPanel.Dock="Bottom"/>
-            <Button Content="Delete" DockPanel.Dock="Bottom"/>
-            <TextBox x:Name="Task_about_ComboBox"/>
+            <Label Content="Task title:" DockPanel.Dock="Top"/>
+            <TextBox x:Name="Task_name_ComboBox" DockPanel.Dock="Top" DataContext="{Binding SelectedMyTask}" Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Content="About task:" DockPanel.Dock="Top" />
+            <Button Content="Delete" DockPanel.Dock="Bottom" Command="{Binding DelMyTask}"/>
+            <Button Content="Update" DockPanel.Dock="Bottom" Command="{Binding UpdateMyTask}"/>
+            <Button Content="Add" DockPanel.Dock="Bottom" Command="{Binding AddTask}" />
+            <TextBox x:Name="Task_about_ComboBox" DataContext="{Binding SelectedMyTask}" Text="{Binding About, UpdateSourceTrigger=PropertyChanged}"/>
         </DockPanel>
         
     </Grid>
